@@ -13,11 +13,16 @@ def break_to_tokens(text):
 
 class Recommendation:
     def __init__(self):
-        self.movie_data = "C:/Users/Abhinay/PycharmProjects/TV_Movie/data/movie_data.csv"
-        self.processed_data = "C:/Users/Abhinay/PycharmProjects/TV_Movie/data/Content_based_recommendation/processed_data.csv"
-        self.corpus_dictionary = "C:/Users/Abhinay/PycharmProjects/TV_Movie/data/Content_based_recommendation/content_based_corpus_dictionoary.dict"
-        self.tfidf_model = "C:/Users/Abhinay/PycharmProjects/TV_Movie/data/Content_based_recommendation/tfidf_model.model"
-        self.matrix_similarity = "C:/Users/Abhinay/PycharmProjects/TV_Movie/data/Content_based_recommendation/similarity.mm"
+        self.movie_data = "data/movie_data.csv"
+        self.processed_data = "data/Content_based_recommendation/processed_data.csv"
+        self.corpus_dictionary = "data/Content_based_recommendation/content_based_corpus_dictionoary.dict"
+        self.tfidf_model = "data/Content_based_recommendation/tfidf_model.model"
+        self.matrix_similarity = "data/Content_based_recommendation/similarity.mm"
+
+    def testingpath(self):
+        data=pd.read_csv(self.movie_data)
+        print(data.columns)
+        return "done"
 
     def pre_process_data(self):
         """
@@ -73,12 +78,16 @@ class Recommendation:
         :param movie_title:
         :return: array of movie names
         """
+        print("movie : ",movie_title)
         dictionary = gensim.corpora.Dictionary.load(self.corpus_dictionary)
         tfidf_model = gensim.models.TfidfModel.load(self.tfidf_model)
         similarity = MatrixSimilarity.load(self.matrix_similarity)
         data = pd.read_csv(self.processed_data)
+
         del data['Unnamed: 0']
+        data["original_title"]=data["original_title"].str.lower()
         movie = data.loc[data.original_title == movie_title]
+        print(movie)
         if movie.shape[0]==0:
             status = ["Failed to Recommend Movies with existing movie data."]
             return status

@@ -74,8 +74,8 @@ class Data_Generation:
         :param limit:
         :return:
         """
-        movies = pd.read_csv("C:/Users/Abhinay/PycharmProjects/TV_Movie/data/ml-latest/movies.csv")
-        links = pd.read_csv("C:/Users/Abhinay/PycharmProjects/TV_Movie/data/ml-latest/links.csv")
+        movies = pd.read_csv("data/ml-latest/movies.csv")
+        links = pd.read_csv("data/ml-latest/links.csv")
         data = pd.merge(movies,links,on="movieId",how="inner")
         data['info'] = data['tmdbId'].apply(lambda x: self.get_movie_details(x))
         data['overview'] = data['info'].apply(lambda x: x['overview'])
@@ -92,8 +92,9 @@ class Data_Generation:
         del data['imdbId']
         del data['info']
         try:
-            data.to_csv("C:/Users/Abhinay/PycharmProjects/TV_Movie/data/movie_data.csv")
+            data.to_csv("data/movie_data.csv")
             return "Data Generated Successfully"
         except:
             return "Failed to Generate Data"
+
 
