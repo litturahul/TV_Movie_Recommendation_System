@@ -6,3 +6,6 @@ The Movie Data set contains 58095 records of movies
 
 The Content-Based Filtering technqiue uses Movie Overview, Tagline, keywords, Genre, Cast and Crew details for recommending movies.
 The Collaborative Filtering technqiue and Hybrid are still in progress.
+
+
+demo ready
